@@ -1,6 +1,6 @@
 {
   "name": "push-server",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "push",
   "main": "index.js",
   "scripts": {
