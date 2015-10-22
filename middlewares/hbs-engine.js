@@ -1,7 +1,7 @@
-exphbs = require('express-handlebars');
-beautify = require('js-beautify').js_beautify;
+var exphbs = require('express-handlebars');
+var beautify = require('js-beautify').js_beautify;
 
-hbs = exphbs.create({
+var hbs = exphbs.create({
   defaultLayout: null,
   extname: '.hbs',
   helpers:{

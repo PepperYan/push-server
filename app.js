@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var net = require('net');
+
 
 var users = require('./routes/users');
 
@@ -33,6 +35,24 @@ app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
+});
+
+//启动推送服务
+var service = require('./service/push-service');
+var server = net.createServer(service.socket);
+
+server.listen(8138, function() { //'listening' listener
+  console.log('server bound');
+});
+
+server.on('error', function (e) {
+  if (e.code == 'EADDRINUSE') {
+    console.log('Address in use, retrying...');
+    setTimeout(function () {
+      server.close();
+      server.listen(PORT, HOST);
+    }, 1000);
+  }
 });
 
 // error handlers
