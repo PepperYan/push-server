@@ -1,0 +1,23 @@
+{
+  "name": "push-server",
+  "version": "0.2.0",
+  "description": "push",
+  "main": "index.js",
+  "scripts": {
+    "test": "push-test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PepperYan/push-server.git"
+  },
+  "keywords": [
+    "long",
+    "connection"
+  ],
+  "author": "hibad-kin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PepperYan/push-server/issues"
+  },
+  "homepage": "https://github.com/PepperYan/push-server#readme"
+}
