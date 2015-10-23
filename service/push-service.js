@@ -29,14 +29,15 @@ function socket(connection){
       return;
 
     var content = message.content;
-
-    connection.write(msgpacker.packWithType({
+    console.log("client:发信息过来了->"+JSON.stringify(content));
+    var msg = {
         "code":"200",
         "msg":"test",
         "time": dateFormat(new Date(), "yyyy-mm-dd h:MM:ss")
-      },1));
+      }
+    connection.write(msgpacker.packWithType(msg,1));
     // connection.pipe(connection);   //pipe完就调end了
-    console.log("writed");
+    console.log("发回执回去:"+JSON.stringify(msg));
   });
 
   //----当一个错误发生时触发。 'close' 事件将直接被下列时间调用----

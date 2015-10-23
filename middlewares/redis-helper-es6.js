@@ -11,10 +11,6 @@ class RedisHelper {
     // })
   }
 
-  client() {
-    return this.client;
-  }
-
   set(key,value,callback,expire) {
     this.client.setAsync(key,value).then(function(reply){
       if(expire){
@@ -28,6 +24,11 @@ class RedisHelper {
       console.error('set报错了:'+err);
       callback(err,null);
     });
+  }
+
+
+  client() {
+    return this.client;
   }
 
   get(key,callback) {

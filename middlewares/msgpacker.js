@@ -1,6 +1,6 @@
 var msgpack = require('msgpack');
 
-module.exports.packWithType = function(object, type){
+module.exports.packWithType = (object, type) =>{
   // 使用msgpack序列化
 	var buffer = msgpack.pack(object);
 	// 重新构建buffer—帧化buffer，格式|length(4byte)|type(1byte)|msgpackbody(var length)|
@@ -16,7 +16,7 @@ module.exports.packWithType = function(object, type){
 }
 
 
-module.exports.unpack = function(framedBuffer){
+module.exports.unpack = (framedBuffer) =>{
 	// console.log(framedBuffer);
 	var length = framedBuffer.readInt32BE(0); // 读出前4位byte[]转为int，表示字符长度
 	// console.log(length); 1
@@ -29,7 +29,7 @@ module.exports.unpack = function(framedBuffer){
 }
 
 
-module.exports.getIntegrityPackage = function(buffer){
+module.exports.getIntegrityPackage = (buffer) =>{
 	//长度
 	var length = buffer.readInt32BE(0);
 	//消息类型
@@ -50,7 +50,7 @@ module.exports.getIntegrityPackage = function(buffer){
 	}
 }
 
-module.exports.validateIntegrity = function(chunk, buffers){
+module.exports.validateIntegrity = (chunk, buffers) => {
 	if(buffers.length > 0){									//这里把上次存的buffer和chunk合并
 		var cache = buffers.pop(); 						//其实永远都只有一个元素在数组里面
 		var newBuffer = new Buffer(cache.length + chunk.length);
@@ -70,10 +70,10 @@ module.exports.validateIntegrity = function(chunk, buffers){
 	var message = this.getIntegrityPackage(chunk);
 	if(message.integral && message.buffer == null){//刚好一条哦
 		console.log('integral message');
-	}else if(message.integral && message.buffer){
+	}else if(message.integral && message.buffer){ //一条还送一点哦
 		console.log('integral message with buffer');
 		buffers.push(message.buffer);
-	}else if(!message.integral){
+	}else if(!message.integral){								//不够一条
 		console.log('not a integral message');
 		buffers.push(message.buffer)
 	}
