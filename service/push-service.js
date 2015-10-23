@@ -22,11 +22,19 @@ function socket(connection){
     var ip = connection.remoteAddress;
     connections.set(ip, connection);
 
+    var buffers = [];
+    var message = msgpacker.validateIntegrity(chunk,buffers);
+
+    if(!message.integral)
+      return;
+
+    var content = message.content;
+
     connection.write(msgpacker.packWithType({
-      "code":"200",
-      "msg":"test",
-      "time": dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT")
-    },1));
+        "code":"200",
+        "msg":"test",
+        "time": dateFormat(new Date(), "yyyy-mm-dd h:MM:ss")
+      },1));
     // connection.pipe(connection);   //pipe完就调end了
     console.log("writed");
   });
