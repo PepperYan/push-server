@@ -10,12 +10,14 @@ module.exports = function(app){
       console.log('插入了~');
       console.log(reply);
 
-      var key1 = redisHelper.get('key1');
-      console.log('下面要揭晓结果了~');
-      console.log(key1);
+      redisHelper.get('key1',function(err,reply){
+        var key1 = reply;
+        console.log('下面要揭晓结果了~');
+        console.log(key1);
+      });
     });
 
-    
+
     // res.render('index', { title: 'Express' });
   });
 

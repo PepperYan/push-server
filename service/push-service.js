@@ -18,7 +18,7 @@ function socket(connection){
 
 
   //----传输的字节流，在这里是字节流一节节的不能保证一次就是一组完整数据，先校验数据完整性----
-  connection.on('data',function(chunk){
+  connection.on('data',(chunk) => {
     var ip = connection.remoteAddress;
     connections.set(ip, connection);
 
@@ -27,11 +27,12 @@ function socket(connection){
       "msg":"test",
       "time": dateFormat(new Date(), "dddd, mmmm dS, yyyy, h:MM:ss TT")
     },1));
+    // connection.pipe(connection);   //pipe完就调end了
     console.log("writed");
   });
 
   //----当一个错误发生时触发。 'close' 事件将直接被下列时间调用----
-	connection.on('error', function(error) {
+	connection.on('error', (error) => {
     console.log("ip:"+error);
 		connections.remove(ip);
 

@@ -25,19 +25,19 @@ class RedisHelper {
       callback(null,reply);
     }.bind(this))
     .catch(function(err){
-      console.err('set报错了:'+err);
+      console.error('set报错了:'+err);
       callback(err,null);
     });
   }
 
   get(key,callback) {
     console.log('进get了');
-    this.client.get(key).then(function(reply) {
+    this.client.getAsync(key).then(function(reply) {
         console.log("get返回:"+reply);
         callback(null,reply);
     })
     .catch(function(err){
-      console.err("get报错了:"+err);
+      console.error("get报错了:"+err);
       callback(err,null);
     });
   }
@@ -48,7 +48,7 @@ class RedisHelper {
         callback(null,reply);
     })
     .catch(function(err){
-      console.err("get报错了:"+err);
+      console.error("get报错了:"+err);
       callback(err,null);
     });
   }
@@ -58,7 +58,7 @@ class RedisHelper {
         callback(null,reply);
     })
     .catch(function(err){
-      console.err('hget:'+err);
+      console.error('hget:'+err);
       callback(null,reply);
     });
   }
@@ -76,7 +76,7 @@ class RedisHelper {
         callback(null,reply);
     }.bind(this))
     .catch(function(err){
-      console.err('hset:'+err);
+      console.error('hset:'+err);
       callback(err,null);
     });
   }
@@ -86,7 +86,7 @@ class RedisHelper {
         callback(error, reply);
     })
     .catch(function(err){
-      console.err('hdel:'+err);
+      console.error('hdel:'+err);
     });
   }
 
