@@ -16,6 +16,10 @@ function socket(connection){
     console.log('client disconnected');
   });
 
+  connection.on('connection',function(){
+    console.log('client connected');
+    connection.write("connected");
+  })
 
   //----传输的字节流，在这里是字节流一节节的不能保证一次就是一组完整数据，先校验数据完整性----
   connection.on('data',(chunk) => {

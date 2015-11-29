@@ -40,10 +40,28 @@ app.use(function(req, res, next) {
 //启动推送服务
 var service = require('./service/push-service');
 var server = net.createServer(service.socket);
-
 server.listen(8138, function() { //'listening' listener
   console.log('server bound');
 });
+
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+require('./service/io-service')(io);
+http.listen(8139, function(){
+  console.log('listening on *:8139');
+});
+
+// var server = require('http').createServer();
+// var BinaryServer = require('binaryjs').BinaryServer;
+// var bs = BinaryServer({server: server});
+// require('./service/binary-service')(bs);
+// server.listen(9000);
+// var WebSocketServer = require('ws').Server,
+//     wss = new WebSocketServer({port: 8139});
+// require('./service/ws-service')(wss)
+
+
+
 
 server.on('error', function (e) {
   if (e.code == 'EADDRINUSE') {
